@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo , useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import ContextMenu, { Position } from 'devextreme-react/context-menu';
 import List from 'devextreme-react/list';
@@ -6,6 +6,7 @@ import { useAuth } from '../../contexts/auth';
 import './user-panel.scss';
 
 export default function UserPanel({ menuMode }) {
+  // const { user, signOut } = useAuth();
   const { user, signOut } = useAuth();
   const history = useHistory();
 
@@ -32,12 +33,12 @@ export default function UserPanel({ menuMode }) {
         <div className={'image-container'}>
           <div
             style={{
-              background: `url(${user.avatarUrl}) no-repeat #fff`,
+              background: `url(${user.customData?.avatarUrl}) no-repeat #fff`,
               backgroundSize: 'cover'
             }}
             className={'user-image'} />
         </div>
-        <div className={'user-name'}>{user.email}</div>
+        <div className={'user-name'}>{user.customData.name}</div>
       </div>
 
       {menuMode === 'context' && (

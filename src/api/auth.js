@@ -1,14 +1,19 @@
-import defaultUser from '../utils/default-user';
+// import defaultUser from '../utils/default-user';
+import * as Realm from "realm-web";
+const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
 
 export async function signIn(email, password) {
   try {
     // Send request
     console.log(email, password);
-
-    return {
-      isOk: true,
-      data: defaultUser
-    };
+    const credentials = Realm.Credentials.emailPassword(email, password);
+    return app.logIn(credentials).then(user => {
+      console.log("user logged in: ", user)
+      return {
+        isOk: true,
+        data: user
+      }
+    })
   }
   catch {
     return {
@@ -24,7 +29,7 @@ export async function getUser() {
 
     return {
       isOk: true,
-      data: defaultUser
+      data: app.currentUser
     };
   }
   catch {
@@ -54,7 +59,7 @@ export async function createAccount(email, password) {
 export async function changePassword(email, recoveryCode) {
   try {
     // Send request
-    console.log(email, recoveryCode);
+    console.log(email, recoveryCode); 
 
     return {
       isOk: true
