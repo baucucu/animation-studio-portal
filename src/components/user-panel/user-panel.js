@@ -23,6 +23,7 @@ export default function UserPanel({ menuMode }) {
       icon: 'runner',
       onClick: signOut
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   ]), [signOut]);
 
   return (
