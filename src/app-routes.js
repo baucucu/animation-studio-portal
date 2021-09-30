@@ -13,11 +13,7 @@ const routes = [
   {
     path: '/home',
     component: HomePage
-  },
-  // {
-  //   path: '/project/:projectId',
-  //   component: ProjectPage
-  // }
+  }
 ];
 
 export default routes.map(route => {
