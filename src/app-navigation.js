@@ -9,4 +9,9 @@ export const navigation = [
     path: '/tasks',
     icon: 'clock'
   },
+  // {
+  //   text: 'Project',
+  //   path: '/project',
+  //   icon: 'folder'
+  // }
   ];

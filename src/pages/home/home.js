@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import List from 'devextreme-react/list';
+import { useHistory } from "react-router-dom";
 import './home.scss';
 import * as Realm from "realm-web";
 
@@ -9,11 +10,22 @@ const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects")
 
 
 export default function Home() {
+  const history = useHistory();
   const [projects, setProjects] = useState()
+  const [selectedProject, setSelectedProject] = useState()
+
+  function navigateToProject(projectId) {
+    history.push(`/project/:${projectId}`);
+  }
 
   async function getProjects() {
     const projects =  await projectsColection.find();
     return projects
+  }
+
+  function handleListSelectionChange(item) {
+    console.log("new project selected: ",item.addedItems[0])
+    navigateToProject(item.addedItems[0]?.deal.id)
   }
 
   useEffect(() => {
@@ -21,6 +33,8 @@ export default function Home() {
   },[])
 
   useEffect(() => {console.log("projects data changed: ", projects)},[projects])
+
+  useEffect(() => {console.log("selected project changed: ", selectedProject)},[selectedProject])
 
   return (
     <React.Fragment>
@@ -33,7 +47,7 @@ export default function Home() {
               // grouped={true}
               // searchEnabled={true}
               // selectedItemKeys={this.state.selectedItemKeys}
-              // onSelectionChanged={this.handleListSelectionChange}
+              onSelectionChanged={handleListSelectionChange}
               itemRender={renderListItem}
               // groupRender={renderListGroup}
               // elementAttr={listAttrs}
