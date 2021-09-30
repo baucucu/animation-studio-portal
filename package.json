@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^12.1.10",
     "bson": "^4.5.2",
     "devextreme": "^21.1.5",
-    "devextreme-query-mongodb": "^2.0.15",
     "devextreme-react": "^21.1.5",
     "react": "^17.0.2",
     "react-app-polyfill": "^1.0.0",

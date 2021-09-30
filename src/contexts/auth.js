@@ -1,5 +1,8 @@
 import React, { useState, useEffect, createContext, useContext, useCallback } from 'react';
 import { getUser, signIn as sendSignInRequest } from '../api/auth';
+import * as Realm from "realm-web";
+
+const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
 
 function AuthProvider(props) {
   const [user, setUser] = useState();
@@ -25,8 +28,10 @@ function AuthProvider(props) {
     return result;
   }, []);
 
-  const signOut = useCallback(() => {
-    setUser();
+  const signOut = useCallback(async () => {
+    await app.currentUser.logOut()
+    setUser()
+    
   }, []);
 
 

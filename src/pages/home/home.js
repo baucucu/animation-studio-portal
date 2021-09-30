@@ -5,22 +5,20 @@ import './home.scss';
 import * as Realm from "realm-web";
 
 const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
-const mongodb = app.currentUser.mongoClient("mongodb-atlas");
-const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects");
+const mongodb = app?.currentUser && app.currentUser.mongoClient("mongodb-atlas");
+const projectsColection = app?.currentUser && mongodb.db("AnimationStudioDB").collection("Projects");
 
 
 export default function Home() {
   const history = useHistory();
   const [projects, setProjects] = useState()
-  // const [selectedProject, setSelectedProject] = useState()
 
   function navigateToProject(projectId) {
     history.push(`/project/:${projectId}`);
   }
 
   async function getProjects() {
-    const projects =  await projectsColection.find();
-    return projects
+    if(app?.currentUser) {return await projectsColection.find()}
   }
 
   function handleListSelectionChange(e) {

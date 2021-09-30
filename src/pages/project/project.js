@@ -2,26 +2,27 @@ import React, {useState, useEffect} from 'react';
 import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
 import Tabs from 'devextreme-react/tabs';
+
 import { useHistory } from "react-router-dom";
 import './project.scss';
 const BSON = require('bson');
 
 const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
-const mongodb = app.currentUser.mongoClient("mongodb-atlas");
-const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects");
+const mongodb = app.currentUser && app.currentUser.mongoClient("mongodb-atlas");
+const projectsColection = app.currentUser && mongodb.db("AnimationStudioDB").collection("Projects");
 
 
 export default function Project() {
   const history = useHistory();
   const projectId = history.location.pathname.split(":")[1]
   const tabs = [
-    { text: 'Brief','icon':'user', index:0 },
-    { text: 'Manuscript','icon':'user', index:1 },
-    { text: 'Storyboard','icon':'user', index:2 },
-    { text: 'Voiceover','icon':'user', index:3  },
-    { text: 'Illustrations','icon':'user', index:4  },
-    { text: 'Animation','icon':'user', index:5  },
-    { text: 'Delivery','icon':'user', index:6  },
+    { text: 'Brief','icon':'fullscreen', index:0 },
+    { text: 'Manuscript','icon':'verticalaligntop', index:1 },
+    { text: 'Storyboard','icon':'image', index:2 },
+    { text: 'Voiceover','icon':'music', index:3  },
+    { text: 'Illustrations','icon':'palette', index:4  },
+    { text: 'Animation','icon':'runner', index:5  },
+    { text: 'Delivery','icon':'movetofolder', index:6  },
   ];
 
   const [project, setProject] = useState()
@@ -37,7 +38,7 @@ export default function Project() {
   }
   
   useEffect(() => {
-    getProject(projectId)
+    app?.currentUser && getProject(projectId)
     .then(data => {
       console.log("Project found: ", data)
       setProject(data[0])
@@ -83,6 +84,9 @@ export default function Project() {
           onOptionChanged={onTabIndexChanged}
         >
         </Tabs>
+        <div id="brief">{tabs.filter(tab => tab.index === selectedIndex)[0].text}</div>
+        
+        
       </>}
     </React.Fragment>
   )

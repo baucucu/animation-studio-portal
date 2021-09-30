@@ -26,11 +26,16 @@ export async function signIn(email, password) {
 export async function getUser() {
   try {
     // Send request
-
-    return {
-      isOk: true,
-      data: app.currentUser
-    };
+    if(app?.currentUser){
+      return {
+        isOk: true,
+        data: app.currentUser
+      };
+    } else {
+      return {
+        isOk: false,
+      };
+    }
   }
   catch {
     return {
