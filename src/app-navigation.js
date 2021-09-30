@@ -2,12 +2,12 @@ export const navigation = [
   {
     text: 'Projects',
     path: '/home',
-    icon: 'favorites'
+    icon: 'folder'
   },
   {
     text: 'Tasks',
     path: '/tasks',
-    icon: 'clock'
+    icon: 'orderedlist'
   },
   // {
   //   text: 'Project',

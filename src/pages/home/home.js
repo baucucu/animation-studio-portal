@@ -12,7 +12,7 @@ const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects")
 export default function Home() {
   const history = useHistory();
   const [projects, setProjects] = useState()
-  const [selectedProject, setSelectedProject] = useState()
+  // const [selectedProject, setSelectedProject] = useState()
 
   function navigateToProject(projectId) {
     history.push(`/project/:${projectId}`);
@@ -23,9 +23,9 @@ export default function Home() {
     return projects
   }
 
-  function handleListSelectionChange(item) {
-    console.log("new project selected: ",item.addedItems[0])
-    navigateToProject(item.addedItems[0]?.deal.id)
+  function handleListSelectionChange(e) {
+    console.log("new project selected: ",e.addedItems[0])
+    navigateToProject(e.addedItems[0]._id.toString())
   }
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Home() {
 
   useEffect(() => {console.log("projects data changed: ", projects)},[projects])
 
-  useEffect(() => {console.log("selected project changed: ", selectedProject)},[selectedProject])
+  // useEffect(() => {console.log("selected project changed: ", selectedProject)},[selectedProject])
 
   return (
     <React.Fragment>
@@ -64,16 +64,25 @@ export default function Home() {
 function renderListItem(item) {
   return (
     <div>
-      {/* {JSON.stringify(item)} */}
-      <div className="hotel">
-        <div className="name">{item.projectName}</div>
-        <div className="address">{`${item.projectOwnerName}`}</div>
-        {/* <div className={`type ${item.Hotel_Class.toLowerCase()}`} /> */}
-      </div>
-      <div className="price-container">
-        <div className="price">{}</div>
-        &nbsp;
-        {/* <div className="caption">per<br />night</div> */}
+      <div className="project">
+        <div className="mongoId">MongoDB id: {item._id.toString()}</div>
+        <div className="projectName">Deal: {item.projectName}</div>
+        <div className="ownerName">Project manager: {`${item.projectOwnerName}`}</div>
+        <div className="clientName">Client contact name: {`${item.clientName}`}</div>
+        <div className="clientName">Client contact email: {`${item.clientEmail}`}</div>
+        <div className="proposalUrl">Proposal URL: {`${item.proposalURL}`}</div>
+        <div className="firstWonTime">Won time: {`${item.firstWonTime}`}</div>
+        <div className="dealValue">Deal value: {`${item.dealValue} ${item.currency}`}</div>
+        <div className="products">
+          <b>Products: </b>
+          {item.products.map((product, id) => {
+            return (
+              <div key={id}>
+                <div className="product">{product.quantity} x {product.name} @ {product.sum_formatted} </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   );
