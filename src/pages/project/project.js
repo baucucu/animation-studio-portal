@@ -8,9 +8,6 @@ import './project.scss';
 const BSON = require('bson');
 
 const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
-const mongodb = app.currentUser && app.currentUser.mongoClient("mongodb-atlas");
-const projectsColection = app.currentUser && mongodb.db("AnimationStudioDB").collection("Projects");
-
 
 export default function Project() {
   const history = useHistory();
@@ -34,15 +31,20 @@ export default function Project() {
   }
 
   async function getProject(projectId){
+    const mongodb = app.currentUser.mongoClient("mongodb-atlas");
+    const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects");
     return await projectsColection.find({_id: BSON.ObjectId(projectId)})
   }
   
   useEffect(() => {
-    app?.currentUser && getProject(projectId)
-    .then(data => {
-      console.log("Project found: ", data)
-      setProject(data[0])
-    })
+    if(app?.currentUser) {
+      app.currentUser && getProject(projectId)
+        .then(data => {
+          console.log("Project found: ", data)
+          setProject(data[0])
+        })
+    }
+    
   },[projectId])
 
   useEffect(() => {

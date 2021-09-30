@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, useContext, useCallback } from 'react';
 import { getUser, signIn as sendSignInRequest } from '../api/auth';
+
 import * as Realm from "realm-web";
 
 const app = new Realm.App({ id: "animationstudioapp-hxbnj" });

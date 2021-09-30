@@ -1,12 +1,9 @@
 import React,{useEffect, useState} from 'react';
 import List from 'devextreme-react/list';
 import { useHistory } from "react-router-dom";
+
 import './home.scss';
 import * as Realm from "realm-web";
-
-const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
-const mongodb = app?.currentUser && app.currentUser.mongoClient("mongodb-atlas");
-const projectsColection = app?.currentUser && mongodb.db("AnimationStudioDB").collection("Projects");
 
 
 export default function Home() {
@@ -18,7 +15,12 @@ export default function Home() {
   }
 
   async function getProjects() {
-    if(app?.currentUser) {return await projectsColection.find()}
+    const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
+    if(app?.currentUser) {
+      const mongodb = app.currentUser.mongoClient("mongodb-atlas");
+      const projectsColection = app?.currentUser && mongodb.db("AnimationStudioDB").collection("Projects");
+      return await projectsColection.find()
+    }
   }
 
   function handleListSelectionChange(e) {
