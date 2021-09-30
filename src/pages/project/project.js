@@ -29,7 +29,11 @@ export default function Project() {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   function onTabIndexChanged (e) {
-    e.name === 'selectedItem' && setSelectedIndex(e.value.index)
+    if(e.name === 'selectedItem') {
+      console.log("event: ",e)
+      setSelectedIndex(e.value.index)
+    }
+    
   }
 
   async function getProject(projectId){
@@ -89,8 +93,9 @@ export default function Project() {
           height={300}
           dataSource={tabs}
           selectedIndex={selectedIndex}
-          // onOptionChanged={this.onSelectionChanged}
-          loop={false}
+          swipeEnabled={false}
+          // onOptionChanged={onTabIndexChanged}
+          // loop={false}
           itemComponent={TabPanel}
           animationEnabled={true} />
       </>}
@@ -99,9 +104,10 @@ export default function Project() {
 };
 
 const TabPanel = (props) => {
-  useEffect(() => {
-    console.log("props: ",props)
-  },[props])
+  // useEffect(() => {
+  //   console.log("props: ",props)
+  // },[props])
+  
   return(
     <>{props.data.text}</>
   )
