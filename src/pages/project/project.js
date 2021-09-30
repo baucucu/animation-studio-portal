@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
 import Tabs from 'devextreme-react/tabs';
+import MultiView from 'devextreme-react/multi-view';
+
 
 import { useHistory } from "react-router-dom";
 import './project.scss';
@@ -27,7 +29,6 @@ export default function Project() {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   function onTabIndexChanged (e) {
-    // console.log("event: ", e)
     e.name === 'selectedItem' && setSelectedIndex(e.value.index)
   }
 
@@ -41,6 +42,7 @@ export default function Project() {
           console.log("Project found: ", data)
           setProject(data[0])
         })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[projectId])
 
   useEffect(() => {
@@ -80,12 +82,27 @@ export default function Project() {
           dataSource={tabs}
           selectedIndex={selectedIndex}
           onOptionChanged={onTabIndexChanged}
+          animated
         >
         </Tabs>
-        <div id="brief">{tabs.filter(tab => tab.index === selectedIndex)[0].text}</div>
-        
-        
+        <MultiView
+          height={300}
+          dataSource={tabs}
+          selectedIndex={selectedIndex}
+          // onOptionChanged={this.onSelectionChanged}
+          loop={false}
+          itemComponent={TabPanel}
+          animationEnabled={true} />
       </>}
     </React.Fragment>
   )
 };
+
+const TabPanel = (props) => {
+  useEffect(() => {
+    console.log("props: ",props)
+  },[props])
+  return(
+    <>{props.data.text}</>
+  )
+}
