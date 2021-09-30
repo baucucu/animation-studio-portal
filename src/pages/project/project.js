@@ -16,13 +16,13 @@ export default function Project() {
   const history = useHistory();
   const projectId = history.location.pathname.split(":")[1]
   const tabs = [
-    { text: 'Brief','icon':'fullscreen', index:0 },
-    { text: 'Manuscript','icon':'verticalaligntop', index:1 },
-    { text: 'Storyboard','icon':'image', index:2 },
-    { text: 'Voiceover','icon':'music', index:3  },
-    { text: 'Illustrations','icon':'palette', index:4  },
-    { text: 'Animation','icon':'runner', index:5  },
-    { text: 'Delivery','icon':'movetofolder', index:6  },
+    { text: 'Brief','icon':'fullscreen', index:0, state:"completed", component: Brief },
+    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active", component: Manuscript },
+    { text: 'Storyboard','icon':'image', index:2, state:"locked", component: Storyboard },
+    { text: 'Voiceover','icon':'music', index:3, state:"locked",  component: Voiceover  },
+    { text: 'Illustrations','icon':'palette', index:4, state:"locked",  component: Illustrations  },
+    { text: 'Animation','icon':'runner', index:5, state:"locked",  component: Animation  },
+    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",  component: Delivery  },
   ];
 
   const [project, setProject] = useState()
@@ -33,7 +33,6 @@ export default function Project() {
       console.log("event: ",e)
       setSelectedIndex(e.value.index)
     }
-    
   }
 
   async function getProject(projectId){
@@ -87,28 +86,50 @@ export default function Project() {
           selectedIndex={selectedIndex}
           onOptionChanged={onTabIndexChanged}
           animated
+          itemRender={TabItem}
         >
         </Tabs>
         <MultiView
-          height={300}
+          // height={300}
           dataSource={tabs}
           selectedIndex={selectedIndex}
           swipeEnabled={false}
-          // onOptionChanged={onTabIndexChanged}
-          // loop={false}
-          itemComponent={TabPanel}
+          itemComponent={tabs.filter(tab => tab.index===selectedIndex)[0].component}
           animationEnabled={true} />
       </>}
     </React.Fragment>
   )
 };
 
-const TabPanel = (props) => {
-  // useEffect(() => {
-  //   console.log("props: ",props)
-  // },[props])
-  
+const TabItem = (props) => {
+  const icon = props.state === "completed" ? "check" : props.state === "active" ? "clock" : "key"
+  const color = props.state === "completed" ? "green" : props.state === "active" ? "purple" : "red"
   return(
-    <>{props.data.text}</>
+    <div>
+      <i class={`dx-icon-${props.icon}`} style={{fontSize:24}}></i>
+      <div>{props.text}<i class={`dx-icon-${icon}`} style={{fontSize:16, color: color}}></i></div>
+    </div>
   )
+}
+
+const Brief = (props) => {
+  return(<>Brief content</>)
+}
+const Manuscript = (props) => {
+  return(<>Manuscript content</>)
+}
+const Storyboard = (props) => {
+  return(<>Storyboard content</>)
+}
+const Voiceover = (props) => {
+  return(<>Voiceover content</>)
+}
+const Illustrations = (props) => {
+  return(<>Illustrations content</>)
+}
+const Animation = (props) => {
+  return(<>Animation content</>)
+}
+const Delivery = (props) => {
+  return(<>Delivery content</>)
 }
