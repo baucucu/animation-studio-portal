@@ -103,12 +103,18 @@ export default function Project() {
 
 const TabItem = (props) => {
   const icon = props.state === "completed" ? "check" : props.state === "active" ? "clock" : "key"
-  const color = props.state === "completed" ? "green" : props.state === "active" ? "purple" : "red"
+  const color = props.state === "completed" ? "green" : props.state === "active" ? "purple" : "gray"
   return(
-    <div>
-      <i class={`dx-icon-${props.icon}`} style={{fontSize:24}}></i>
-      <div>{props.text}<i class={`dx-icon-${icon}`} style={{fontSize:16, color: color}}></i></div>
-    </div>
+    <React.Fragment style={{display: "flex", flexDirection: "row"}}>
+      <div>
+        <i class={`dx-icon-${icon}`} style={{marginLeft:50, fontSize:16, color: color}}></i>
+      </div>
+      <div>
+        <i class={`dx-icon-${props.icon}`} style={{fontSize:24}}></i>
+        <div>{props.text}</div>
+      </div>
+      
+    </React.Fragment>
   )
 }
 
