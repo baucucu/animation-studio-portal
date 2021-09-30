@@ -37,14 +37,11 @@ export default function Project() {
   }
   
   useEffect(() => {
-    if(app?.currentUser) {
-      app.currentUser && getProject(projectId)
+      getProject(projectId)
         .then(data => {
           console.log("Project found: ", data)
           setProject(data[0])
         })
-    }
-    
   },[projectId])
 
   useEffect(() => {
