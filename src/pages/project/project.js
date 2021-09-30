@@ -7,9 +7,10 @@ import { useHistory } from "react-router-dom";
 import './project.scss';
 const BSON = require('bson');
 
-const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
-
 export default function Project() {
+  const app = new Realm.App({ id: "animationstudioapp-hxbnj" });
+  const mongodb = app.currentUser.mongoClient("mongodb-atlas");
+  const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects");
   const history = useHistory();
   const projectId = history.location.pathname.split(":")[1]
   const tabs = [
@@ -31,8 +32,6 @@ export default function Project() {
   }
 
   async function getProject(projectId){
-    const mongodb = app.currentUser.mongoClient("mongodb-atlas");
-    const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects");
     return await projectsColection.find({_id: BSON.ObjectId(projectId)})
   }
   
