@@ -18,7 +18,6 @@ export default function Project() {
   const [project, setProject] = useState()
 
   async function getProject(projectId){
-    console.log("projectId ", projectId)
     return await projectsColection.find({_id: BSON.ObjectId(projectId)})
   }
   
@@ -26,7 +25,7 @@ export default function Project() {
     getProject(projectId)
     .then(data => {
       console.log("Project found: ", data)
-      setProject(data)
+      setProject(data[0])
     })
   },[projectId])
 
@@ -38,11 +37,30 @@ export default function Project() {
     <React.Fragment>
       <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
       <h2 className={'content-block'}>Project</h2>
-      <div className={'content-block'}>
+      {project && <div className={'content-block'}>
         <div className={'dx-card responsive-paddings'}>
-          Put your content here
+          <div className="project">
+          <div className="mongoId">MongoDB id: {project._id.toString()}</div>
+          <div className="projectName">Deal: {project.projectName}</div>
+          <div className="ownerName">Project manager: {`${project.projectOwnerName}`}</div>
+          <div className="clientName">Client contact name: {`${project.clientName}`}</div>
+          <div className="clientName">Client contact email: {`${project.clientEmail}`}</div>
+          <div className="proposalUrl">Proposal URL: {`${project.proposalURL}`}</div>
+          <div className="firstWonTime">Won time: {`${project.firstWonTime}`}</div>
+          <div className="dealValue">Deal value: {`${project.dealValue} ${project.currency}`}</div>
+          <div className="products">
+            <b>Products: </b>
+            {project.products.map((product, id) => {
+              return (
+                <div key={id}>
+                  <div className="product">{product.quantity} x {product.name} @ {product.sum_formatted} </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
-      </div>
+        </div>
+      </div>}
     </React.Fragment>
   )
 };
