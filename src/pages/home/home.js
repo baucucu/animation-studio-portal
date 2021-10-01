@@ -69,8 +69,8 @@ function renderListItem(item) {
         </div>
       </div>
       <div className="members">
-        <Chip avatar={<Avatar sx={{ bgcolor: 'primary' }}>PM</Avatar>} label={item.projectOwnerName} />
-        <Chip avatar={<Avatar sx={{ bgcolor: 'primary' }} {...stringAvatar(item.clientName)} /> } label={item.clientName}/>
+        <Chip style={{marginRight: 4}} avatar={<Avatar sx={{ bgcolor: 'primary' }}>PM</Avatar>} label={item.projectOwnerName} />
+        <Chip style={{marginRight: 4}} avatar={<Avatar sx={{ bgcolor: 'primary' }} {...stringAvatar(item.clientName)} /> } label={item.clientName}/>
       </div>
       {/* <div className="proposalUrl">Proposal URL: {`${item.proposalURL}`}</div> */}
       {/* <div className="firstWonTime">Won time: {`${item.firstWonTime}`}</div> */}
