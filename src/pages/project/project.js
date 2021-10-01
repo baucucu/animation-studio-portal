@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Manuscript from '../../components/manuscript/manuscript.js'
 import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
 import Tabs from 'devextreme-react/tabs';
@@ -8,6 +9,15 @@ import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 // import CheckIcon from '@mui/icons-material/Check';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CardButton from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 
 
 import { useHistory } from "react-router-dom";
@@ -62,8 +72,14 @@ export default function Project() {
     )
   }
   const Brief = (props) => {
+    const {project} = props.data
     const [showPopup, setShowPopup] = useState(false)
     const url = `https://studioflow.typeform.com/to/N5cgnKjZ#companyname=${'xxxxx'}&orderedpackage=${'xxxxx'}&orderedpremiumlogoanimation=${'xxxxx'}&subtitle=${'xxxxx'}&deal_id=${'xxxxx'}`
+   
+   useEffect(() => {
+     console.log("props ", props)
+   },[props])
+   
     return(
       <>
         {project?.brief && <></>}
@@ -96,9 +112,8 @@ export default function Project() {
       </>
     )
   }
-  const Manuscript = (props) => {
-    return(<>Manuscript content</>)
-  }
+  
+  
   const Storyboard = (props) => {
     return(<>Storyboard content</>)
   }
@@ -116,13 +131,13 @@ export default function Project() {
   }
 
   const tabs = [
-    { text: 'Brief','icon':'fullscreen', index:0, state:"completed", component: Brief },
-    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active", component: Manuscript },
-    { text: 'Storyboard','icon':'image', index:2, state:"locked", component: Storyboard },
-    { text: 'Voiceover','icon':'music', index:3, state:"locked",  component: Voiceover  },
-    { text: 'Illustrations','icon':'palette', index:4, state:"locked",  component: Illustrations  },
-    { text: 'Animation','icon':'runner', index:5, state:"locked",  component: Animation  },
-    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",  component: Delivery  },
+    { text: 'Brief','icon':'fullscreen', index:0, state:"completed", component: Brief, project: project },
+    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active", component: Manuscript, project: project },
+    { text: 'Storyboard','icon':'image', index:2, state:"locked", component: Storyboard, project: project },
+    { text: 'Voiceover','icon':'music', index:3, state:"locked",  component: Voiceover, project: project  },
+    { text: 'Illustrations','icon':'palette', index:4, state:"locked",  component: Illustrations, project: project  },
+    { text: 'Animation','icon':'runner', index:5, state:"locked",  component: Animation, project: project  },
+    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",  component: Delivery, project: project  },
   ];
 
   return (
@@ -163,5 +178,4 @@ export default function Project() {
   )
   
 };
-
 

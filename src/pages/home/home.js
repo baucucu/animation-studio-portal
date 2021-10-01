@@ -36,13 +36,14 @@ export default function Home() {
   return (
     <React.Fragment>
       <h2 className={'content-block'}>Projects</h2>
-      <List
-        className={'content-block'}
-        selectionMode="single"
-        dataSource={projects ? projects : []}
-        onSelectionChanged={handleListSelectionChange}
-        itemRender={renderListItem}
-      />
+      <div className={'content-block'}>
+        <List
+          selectionMode="single"
+          dataSource={projects ? projects : []}
+          onSelectionChanged={handleListSelectionChange}
+          itemRender={renderListItem}
+        />
+      </div>
     </React.Fragment>
 )}
 
