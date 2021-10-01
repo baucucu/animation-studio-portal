@@ -3,11 +3,16 @@ import Manuscript from '../../components/manuscript/manuscript.js'
 import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
 import Tabs from 'devextreme-react/tabs';
+import Box from 'devextreme-react/box';
 import MultiView from 'devextreme-react/multi-view';
 import { Popup} from 'devextreme-react/popup';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import Stack from '@mui/material/Stack';
+import StepLabel from '@mui/material/StepLabel';
 
 
 import { useHistory } from "react-router-dom";
@@ -29,7 +34,7 @@ export default function Project() {
       setSelectedIndex(e.value.index)
     }
   }
-  
+
   async function getProject(projectId){
     return await projectsColection.find({_id: BSON.ObjectId(projectId)})
   }
@@ -102,8 +107,7 @@ export default function Project() {
       </>
     )
   }
-  
-  
+ 
   const Storyboard = (props) => {
     return(<>Storyboard content</>)
   }
@@ -132,7 +136,7 @@ export default function Project() {
 
   return (
     <React.Fragment>
-      {project && <div className={'content-block'}>
+      {project && <Stack className={'content-block'} spacing={2}>
           <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
             <div style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
               <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
@@ -149,6 +153,7 @@ export default function Project() {
             </div>
           </div>          
         <Tabs
+          mb={2}
           dataSource={tabs}
           selectedIndex={selectedIndex}
           onOptionChanged={onTabIndexChanged}
@@ -156,6 +161,26 @@ export default function Project() {
           itemRender={TabItem}
         >
         </Tabs>
+        
+        <Stepper activeStep={selectedIndex}>
+          {tabs.map((tab, index) => {
+            const stepProps = {};
+            const labelProps = {};
+            // if (isStepOptional(index)) {
+            //   labelProps.optional = (
+            //     <Typography variant="caption">Optional</Typography>
+            //   );
+            // }
+            // if (isStepSkipped(index)) {
+            //   stepProps.completed = false;
+            // }
+            return (
+              <Step key={tab.text} {...stepProps}>
+                <StepLabel {...labelProps}>{tab.text}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
         <MultiView
           // height={300}
           dataSource={tabs}
@@ -163,7 +188,7 @@ export default function Project() {
           swipeEnabled={false}
           itemComponent={tabs.filter(tab => tab.index===selectedIndex)[0].component}
           animationEnabled={true} />
-      </div>}
+      </Stack>}
     </React.Fragment>
   )
   
