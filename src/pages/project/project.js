@@ -5,6 +5,8 @@ import Tabs from 'devextreme-react/tabs';
 import MultiView from 'devextreme-react/multi-view';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
+// import CheckIcon from '@mui/icons-material/Check';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 
 import { useHistory } from "react-router-dom";
@@ -60,15 +62,20 @@ export default function Project() {
     <React.Fragment>
       {project && <>
         <div id="content" className={'content-block'}>
-          <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
-            <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
-            <h2 className="projectName">{project.projectName}</h2>
-            {project.products.map((product, id) => <Chip style={{marginLeft: 8}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
-            <div style={{display: "flex", flexGrow:1, justifyContent: "flex-end", alignItems:"center"}}>
-              <Chip avatar={<Avatar>PM</Avatar>} label={project.projectOwnerName} />
-              <Button icon="product" style={{margin:8}} text="Proposal"></Button>
+          <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
+            <div style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
+              <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
+              <h2 className="projectName">{project.projectName}</h2>
+              <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
             </div>
-          </div>
+            <div style={{marginBottom:8, display: 'flex', flexDirection: 'row',alignItems:'center',justifyContent: 'center'}}>
+              <Avatar sx={{ bgcolor: 'primary'}}>PM</Avatar>  
+            </div>
+            <div style={{display: "flex", flexGrow:0, justifyContent: "flex-end", alignItems:"center"}}>
+              {project.products.map((product, id) => <Chip style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
+              <Button icon="product" style={{marginLeft:8}} text="Proposal"></Button>
+            </div>
+          </div>          
         </div>
         <Tabs
           dataSource={tabs}

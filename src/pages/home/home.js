@@ -1,7 +1,9 @@
 import React,{useEffect, useState} from 'react';
 import List from 'devextreme-react/list';
 import { useHistory } from "react-router-dom";
-
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import './home.scss';
 import * as Realm from "realm-web";
 
@@ -39,51 +41,39 @@ export default function Home() {
   return (
     <React.Fragment>
       <h2 className={'content-block'}>Projects</h2>
-      <div className={'content-block'}>
-        <div className={'dx-card responsive-paddings'}>
-          <List
-              selectionMode="single"
-              dataSource={projects ? projects : []}
-              // grouped={true}
-              // searchEnabled={true}
-              // selectedItemKeys={this.state.selectedItemKeys}
-              onSelectionChanged={handleListSelectionChange}
-              itemRender={renderListItem}
-              // groupRender={renderListGroup}
-              // elementAttr={listAttrs}
-            />
-        </div>
-      </div>
+      <List
+        selectionMode="single"
+        dataSource={projects ? projects : []}
+        onSelectionChanged={handleListSelectionChange}
+        itemRender={renderListItem}
+      />
     </React.Fragment>
 )}
 
-// function renderListGroup(group) {
-//   return <div className="city">{group.key}</div>;
-// }
+function stringAvatar(name) {
+  return {
+    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  };
+}
 
 function renderListItem(item) {
   return (
-    <div>
-      <div className="project">
-        <div className="mongoId">MongoDB id: {item._id.toString()}</div>
-        <div className="projectName">Deal: {item.projectName}</div>
-        <div className="ownerName">Project manager: {`${item.projectOwnerName}`}</div>
-        <div className="clientName">Client contact name: {`${item.clientName}`}</div>
-        <div className="clientName">Client contact email: {`${item.clientEmail}`}</div>
-        <div className="proposalUrl">Proposal URL: {`${item.proposalURL}`}</div>
-        <div className="firstWonTime">Won time: {`${item.firstWonTime}`}</div>
-        <div className="dealValue">Deal value: {`${item.dealValue} ${item.currency}`}</div>
-        <div className="products">
-          <b>Products: </b>
-          {item.products.map((product, id) => {
-            return (
-              <div key={id}>
-                <div className="product">{product.quantity} x {product.name} @ {product.sum_formatted} </div>
-              </div>
-            )
-          })}
+    <div className="project">
+      <div style={{display: "flex", flexDirection:"row", alignItems: "center", justifyContent:"space-between"}}>
+        <div style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
+          <h2 className="projectName">{item.projectName}</h2>
+          <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
+        </div>
+        <div>
+          {item.products.map((product, id) => <Chip style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
         </div>
       </div>
+      <div className="members">
+        <Chip avatar={<Avatar sx={{ bgcolor: 'primary' }}>PM</Avatar>} label={item.projectOwnerName} />
+        <Chip avatar={<Avatar sx={{ bgcolor: 'primary' }} {...stringAvatar(item.clientName)} /> } label={item.clientName}/>
+      </div>
+      {/* <div className="proposalUrl">Proposal URL: {`${item.proposalURL}`}</div> */}
+      {/* <div className="firstWonTime">Won time: {`${item.firstWonTime}`}</div> */}
     </div>
   );
 }
