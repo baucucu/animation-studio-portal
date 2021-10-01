@@ -3,6 +3,8 @@ import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
 import Tabs from 'devextreme-react/tabs';
 import MultiView from 'devextreme-react/multi-view';
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
 
 
 import { useHistory } from "react-router-dom";
@@ -27,10 +29,10 @@ export default function Project() {
 
   const [project, setProject] = useState()
   const [selectedIndex, setSelectedIndex] = useState(0)
-
+  
   function onTabIndexChanged (e) {
     if(e.name === 'selectedItem') {
-      console.log("event: ",e)
+      // console.log("event: ",e)
       setSelectedIndex(e.value.index)
     }
   }
@@ -38,12 +40,14 @@ export default function Project() {
   async function getProject(projectId){
     return await projectsColection.find({_id: BSON.ObjectId(projectId)})
   }
-  
+
   useEffect(() => {
+      
       getProject(projectId)
         .then(data => {
           console.log("Project found: ", data)
           setProject(data[0])
+          // setLoading(false)
         })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[projectId])
@@ -54,31 +58,16 @@ export default function Project() {
 
   return (
     <React.Fragment>
-      <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
-      <h2 className={'content-block'}>Project</h2>
       {project && <>
-        <div className={'content-block'}>
-          <div className={'dx-card responsive-paddings'}>
-            <div className="project">
-            <div className="mongoId">MongoDB id: {project._id.toString()}</div>
-            <div className="projectName">Deal: {project.projectName}</div>
-            <div className="ownerName">Project manager: {`${project.projectOwnerName}`}</div>
-            <div className="clientName">Client contact name: {`${project.clientName}`}</div>
-            <div className="clientName">Client contact email: {`${project.clientEmail}`}</div>
-            <div className="proposalUrl">Proposal URL: {`${project.proposalURL}`}</div>
-            <div className="firstWonTime">Won time: {`${project.firstWonTime}`}</div>
-            <div className="dealValue">Deal value: {`${project.dealValue} ${project.currency}`}</div>
-            <div className="products">
-              <b>Products: </b>
-              {project.products.map((product, id) => {
-                return (
-                  <div key={id}>
-                    <div className="product">{product.quantity} x {product.name} @ {product.sum_formatted} </div>
-                  </div>
-                )
-              })}
+        <div id="content" className={'content-block'}>
+          <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+            <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
+            <h2 className="projectName">{project.projectName}</h2>
+            {project.products.map((product, id) => <Chip style={{marginLeft: 8}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
+            <div style={{display: "flex", flexGrow:1, justifyContent: "flex-end", alignItems:"center"}}>
+              <Chip avatar={<Avatar>PM</Avatar>} label={project.projectOwnerName} />
+              <Button icon="product" style={{margin:8}} text="Proposal"></Button>
             </div>
-          </div>
           </div>
         </div>
         <Tabs
@@ -101,11 +90,13 @@ export default function Project() {
   )
 };
 
-const TabItem = (props) => {
+
+const TabItem = (props, { theme }) => {
   const icon = props.state === "completed" ? "check" : props.state === "active" ? "clock" : "key"
   const color = props.state === "completed" ? "green" : props.state === "active" ? "purple" : "gray"
+  
   return(
-    <React.Fragment style={{display: "flex", flexDirection: "row"}}>
+    <div >
       <div>
         <i class={`dx-icon-${icon}`} style={{marginLeft:50, fontSize:16, color: color}}></i>
       </div>
@@ -114,7 +105,7 @@ const TabItem = (props) => {
         <div>{props.text}</div>
       </div>
       
-    </React.Fragment>
+    </div>  
   )
 }
 
