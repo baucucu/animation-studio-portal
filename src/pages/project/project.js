@@ -4,20 +4,10 @@ import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
 import Tabs from 'devextreme-react/tabs';
 import MultiView from 'devextreme-react/multi-view';
-import { Popup, Position, ToolbarItem } from 'devextreme-react/popup';
+import { Popup} from 'devextreme-react/popup';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
-// import CheckIcon from '@mui/icons-material/Check';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CardButton from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 
 
 import { useHistory } from "react-router-dom";
@@ -39,7 +29,7 @@ export default function Project() {
       setSelectedIndex(e.value.index)
     }
   }
-
+  
   async function getProject(projectId){
     return await projectsColection.find({_id: BSON.ObjectId(projectId)})
   }

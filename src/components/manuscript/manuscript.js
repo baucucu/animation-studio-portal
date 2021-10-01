@@ -1,34 +1,41 @@
 
-import React, {useState, useEffect} from 'react';
-import * as Realm from "realm-web";
-import Button from 'devextreme-react/button';
+import React from 'react';
+
 import Chip from '@mui/material/Chip';
-// import Avatar from '@mui/material/Avatar';
-// import CheckIcon from '@mui/icons-material/Check';
-// import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CardButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+
 export default function Manuscript(props){
-    const {project} = props.data
     return(
         <Stack>
             <Stack mt={2} sx={{flexDirection: 'row', justifyContent:"stretch"}}>
                 <Card sx={{flexGrow:1}}>
                     <CardContent>
                         <Stack sx={{flexDirection:"row", alignItems: "center", justifyContent:"space-between"}}>
-                            <Typography variant="subtitle1" color="text.secondary" component="div">Language</Typography>
-                            <   Typography variant="subtitle1" color="text.secondary" component="div">Word count</Typography>
-                            <Typography variant="subtitle1" color="text.secondary" component="div">Target length</Typography>
-                            <Typography variant="subtitle1" color="text.secondary" component="div">Scenes</Typography>
+                            <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
+                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Language</Typography>
+                                <Chip label={"Swedish"} ></Chip>
+                            </Stack>
+                            <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
+                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Word count</Typography>
+                                <Chip label={"385"} ></Chip>
+                            </Stack>
+                            <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
+                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Target length</Typography>
+                                <Chip label={"60s"} ></Chip>
+                            </Stack>
+                            <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
+                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Scenes</Typography>
+                                <Chip label={"8"} ></Chip>
+                            </Stack>
                         </Stack>
                     </CardContent>
                     <CardActions>
@@ -40,8 +47,12 @@ export default function Manuscript(props){
                     <CardContent>
                         <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
                             <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
-                                <Typography variant="subtitle1" color="text.secondary" component="div">Time to respond</Typography>
-                                <Chip></Chip>
+                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Time to respond</Typography>
+                                <Chip label={"18:00:00"} ></Chip>
+                            </Stack>
+                            <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
+                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Revisions</Typography>
+                                <Chip label={"2/5"} ></Chip>
                             </Stack>
                             <CardButton size="small">Extend time</CardButton>
                         </Stack>
@@ -63,8 +74,25 @@ export default function Manuscript(props){
                                 alt="Live from space album cover"
                             />
                             <CardContent sx={{flexGrow:1}}>
-                                <Stack sx={{flexDirection:"row", alignItems: "center", justifyContent:"space-around"}}>
-                                    <div>Content</div>
+                                <Typography variant="h6" color="text.secondary" component="div">Scene #</Typography>
+                                <Typography variant="body2" color="text.secondary" component="div">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </Typography>
+                                <Stack sx={{flexDirection:"column"}}>
+                                    <Stack mt={1} sx={{flexDirection:"row"}}>
+                                        <AccessTimeFilledIcon/>
+                                        <Typography ml={1} variant="body2" color="text.secondary" component="div">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Typography>
+                                    </Stack>
+                                    <Stack mt={1} sx={{flexDirection:"row"}}>
+                                        <AccessTimeFilledIcon/>
+                                        <Typography ml={1} variant="body2" color="text.secondary" component="div">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Typography>
+                                    </Stack>
+                                    <Stack mt={1} sx={{flexDirection:"row"}}>
+                                        <AccessTimeFilledIcon/>
+                                        <Typography ml={1} variant="body2" color="text.secondary" component="div">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Typography>
+                                    </Stack>
+                                    <Stack mt={1} sx={{flexDirection:"row"}}>
+                                        <AccessTimeFilledIcon/>
+                                        <Typography ml={1} variant="body2" color="text.secondary" component="div">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Typography>
+                                    </Stack>
                                 </Stack>
                             </CardContent>
                             <CardActions>
