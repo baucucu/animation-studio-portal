@@ -26,17 +26,12 @@ export default function Home() {
   }
 
   function handleListSelectionChange(e) {
-    console.log("new project selected: ",e.addedItems[0])
     navigateToProject(e.addedItems[0]._id.toString())
   }
 
   useEffect(() => {
     getProjects().then(data => setProjects(data))
   },[])
-
-  useEffect(() => {console.log("projects data changed: ", projects)},[projects])
-
-  // useEffect(() => {console.log("selected project changed: ", selectedProject)},[selectedProject])
 
   return (
     <React.Fragment>
@@ -66,7 +61,7 @@ function renderListItem(item) {
           <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
         </div>
         <div>
-          {item.products.map((product, id) => <Chip style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
+          {item.products.map((product, id) => <Chip key={id} style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
         </div>
       </div>
       <div className="members">

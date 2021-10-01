@@ -3,6 +3,7 @@ import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
 import Tabs from 'devextreme-react/tabs';
 import MultiView from 'devextreme-react/multi-view';
+import { Popup, Position, ToolbarItem } from 'devextreme-react/popup';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 // import CheckIcon from '@mui/icons-material/Check';
@@ -19,22 +20,12 @@ export default function Project() {
   const projectsColection = mongodb.db("AnimationStudioDB").collection("Projects");
   const history = useHistory();
   const projectId = history.location.pathname.split(":")[1]
-  const tabs = [
-    { text: 'Brief','icon':'fullscreen', index:0, state:"completed", component: Brief },
-    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active", component: Manuscript },
-    { text: 'Storyboard','icon':'image', index:2, state:"locked", component: Storyboard },
-    { text: 'Voiceover','icon':'music', index:3, state:"locked",  component: Voiceover  },
-    { text: 'Illustrations','icon':'palette', index:4, state:"locked",  component: Illustrations  },
-    { text: 'Animation','icon':'runner', index:5, state:"locked",  component: Animation  },
-    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",  component: Delivery  },
-  ];
 
   const [project, setProject] = useState()
   const [selectedIndex, setSelectedIndex] = useState(0)
   
   function onTabIndexChanged (e) {
     if(e.name === 'selectedItem') {
-      // console.log("event: ",e)
       setSelectedIndex(e.value.index)
     }
   }
@@ -44,19 +35,95 @@ export default function Project() {
   }
 
   useEffect(() => {
-      
       getProject(projectId)
         .then(data => {
-          console.log("Project found: ", data)
           setProject(data[0])
-          // setLoading(false)
         })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[projectId])
 
   useEffect(() => {
-    console.log("Project data has changed: ", project)
   },[project])
+
+  const TabItem = (props) => {
+    const icon = props.state === "completed" ? "check" : props.state === "active" ? "clock" : "key"
+    const color = props.state === "completed" ? "green" : props.state === "active" ? "purple" : "gray"
+    return(
+      <div >
+        <div>
+          <i className={`dx-icon-${icon}`} style={{marginLeft:50, fontSize:16, color: color}}></i>
+        </div>
+        <div>
+          <i className={`dx-icon-${props.icon}`} style={{fontSize:24}}></i>
+          <div>{props.text}</div>
+        </div>
+        
+      </div>  
+    )
+  }
+  const Brief = (props) => {
+    const [showPopup, setShowPopup] = useState(false)
+    const url = `https://studioflow.typeform.com/to/N5cgnKjZ#companyname=${'xxxxx'}&orderedpackage=${'xxxxx'}&orderedpremiumlogoanimation=${'xxxxx'}&subtitle=${'xxxxx'}&deal_id=${'xxxxx'}`
+    return(
+      <>
+        {project?.brief && <></>}
+        {!project?.brief && <div>
+          <p>In order to start your project, we need to collect some information about your company, product, and your expectations.</p>
+          <p>This will lay the ground for the whole project and will be shared with all creators working on the project.</p>
+          <p>The questionnaire contains about 40 questions and takes roughly 30 minutes to respond to.</p>
+          <p>Make sure you have gathered all involved parties on your side when answering the questions in the brief. The more detailed the better it is!</p>
+          <p>Click the link below to start the questionnaire.</p>
+          <Button
+            className="button-info"
+            text="Brief questionnaire"
+            onClick={()=>setShowPopup(true)}
+          />
+          <Popup
+            visible={showPopup}
+            onHiding={()=>setShowPopup(false)}
+            // dragEnabled={false}
+            closeOnOutsideClick={true}
+            showCloseButton={true}
+            showTitle={true}
+            title="Brief"
+            container=".dx-viewport"
+            width={1000}
+            height={800}
+          >
+            <iframe style={{width:940, height: 680}} src={url} title="Brief"/>
+          </Popup>
+        </div>}
+      </>
+    )
+  }
+  const Manuscript = (props) => {
+    return(<>Manuscript content</>)
+  }
+  const Storyboard = (props) => {
+    return(<>Storyboard content</>)
+  }
+  const Voiceover = (props) => {
+    return(<>Voiceover content</>)
+  }
+  const Illustrations = (props) => {
+    return(<>Illustrations content</>)
+  }
+  const Animation = (props) => {
+    return(<>Animation content</>)
+  }
+  const Delivery = (props) => {
+    return(<>Delivery content</>)
+  }
+
+  const tabs = [
+    { text: 'Brief','icon':'fullscreen', index:0, state:"completed", component: Brief },
+    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active", component: Manuscript },
+    { text: 'Storyboard','icon':'image', index:2, state:"locked", component: Storyboard },
+    { text: 'Voiceover','icon':'music', index:3, state:"locked",  component: Voiceover  },
+    { text: 'Illustrations','icon':'palette', index:4, state:"locked",  component: Illustrations  },
+    { text: 'Animation','icon':'runner', index:5, state:"locked",  component: Animation  },
+    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",  component: Delivery  },
+  ];
 
   return (
     <React.Fragment>
@@ -72,7 +139,7 @@ export default function Project() {
               <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
             </div>
             <div style={{display: "flex", flexGrow:0, justifyContent: "flex-end", alignItems:"center"}}>
-              {project.products.map((product, id) => <Chip style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
+              {project.products.map((product, id) => <Chip key={id} style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
               <Button icon="product" style={{marginLeft:8}} text="Proposal"></Button>
             </div>
           </div>          
@@ -94,45 +161,7 @@ export default function Project() {
       </div>}
     </React.Fragment>
   )
+  
 };
 
 
-const TabItem = (props, { theme }) => {
-  const icon = props.state === "completed" ? "check" : props.state === "active" ? "clock" : "key"
-  const color = props.state === "completed" ? "green" : props.state === "active" ? "purple" : "gray"
-  
-  return(
-    <div >
-      <div>
-        <i class={`dx-icon-${icon}`} style={{marginLeft:50, fontSize:16, color: color}}></i>
-      </div>
-      <div>
-        <i class={`dx-icon-${props.icon}`} style={{fontSize:24}}></i>
-        <div>{props.text}</div>
-      </div>
-      
-    </div>  
-  )
-}
-
-const Brief = (props) => {
-  return(<>Brief content</>)
-}
-const Manuscript = (props) => {
-  return(<>Manuscript content</>)
-}
-const Storyboard = (props) => {
-  return(<>Storyboard content</>)
-}
-const Voiceover = (props) => {
-  return(<>Voiceover content</>)
-}
-const Illustrations = (props) => {
-  return(<>Illustrations content</>)
-}
-const Animation = (props) => {
-  return(<>Animation content</>)
-}
-const Delivery = (props) => {
-  return(<>Delivery content</>)
-}
