@@ -69,7 +69,7 @@ export default function Project() {
               <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
             </div>
             <div style={{marginBottom:8, display: 'flex', flexDirection: 'row',alignItems:'center',justifyContent: 'center'}}>
-              <Avatar sx={{ bgcolor: 'primary'}}>PM</Avatar>
+              <Avatar sx={{ bgcolor: 'primary', marginRight:1}}>PM</Avatar>
               <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
             </div>
             <div style={{display: "flex", flexGrow:0, justifyContent: "flex-end", alignItems:"center"}}>
