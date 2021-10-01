@@ -60,12 +60,11 @@ export default function Project() {
 
   return (
     <React.Fragment>
-      {project && <>
-        <div id="content" className={'content-block'}>
+      {project && <div className={'content-block'}>
           <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
             <div style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
               <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
-              <h2 className="projectName">{project.projectName}</h2>
+              <h2 style={{fontSize:24}} className="projectName">{project.projectName}</h2>
               <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
             </div>
             <div style={{marginBottom:8, display: 'flex', flexDirection: 'row',alignItems:'center',justifyContent: 'center'}}>
@@ -77,7 +76,6 @@ export default function Project() {
               <Button icon="product" style={{marginLeft:8}} text="Proposal"></Button>
             </div>
           </div>          
-        </div>
         <Tabs
           dataSource={tabs}
           selectedIndex={selectedIndex}
@@ -93,7 +91,7 @@ export default function Project() {
           swipeEnabled={false}
           itemComponent={tabs.filter(tab => tab.index===selectedIndex)[0].component}
           animationEnabled={true} />
-      </>}
+      </div>}
     </React.Fragment>
   )
 };

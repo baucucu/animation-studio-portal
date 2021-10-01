@@ -42,6 +42,7 @@ export default function Home() {
     <React.Fragment>
       <h2 className={'content-block'}>Projects</h2>
       <List
+        className={'content-block'}
         selectionMode="single"
         dataSource={projects ? projects : []}
         onSelectionChanged={handleListSelectionChange}
