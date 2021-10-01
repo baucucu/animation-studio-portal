@@ -47,14 +47,14 @@ export default function Manuscript(props){
                     <CardContent>
                         <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
                             <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
-                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Time to respond</Typography>
-                                <Chip label={"18:00:00"} ></Chip>
-                            </Stack>
-                            <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
                                 <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Revisions</Typography>
                                 <Chip label={"2/5"} ></Chip>
                             </Stack>
-                            <CardButton size="small">Extend time</CardButton>
+                            <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
+                                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Time to respond</Typography>
+                                <Chip label={"18:00:00"} ></Chip>
+                                <CardButton size="small">Extend time</CardButton>
+                            </Stack>
                         </Stack>
                     </CardContent>
                 <CardActions>
