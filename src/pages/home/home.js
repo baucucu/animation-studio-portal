@@ -61,7 +61,7 @@ function renderListItem(item) {
     <div className="project">
       <div style={{display: "flex", flexDirection:"row", alignItems: "center", justifyContent:"space-between"}}>
         <div style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
-          <h2 className="projectName">{item.projectName}</h2>
+          <h2 style={{fontSize:24}} className="projectName">{item.projectName}</h2>
           <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
         </div>
         <div>
