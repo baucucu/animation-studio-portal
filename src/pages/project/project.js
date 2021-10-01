@@ -8,11 +8,15 @@ import MultiView from 'devextreme-react/multi-view';
 import { Popup} from 'devextreme-react/popup';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import Stack from '@mui/material/Stack';
 import StepLabel from '@mui/material/StepLabel';
+import StepContent from '@mui/material/StepContent';
+import CheckIcon from '@mui/icons-material/Check';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LockClockIcon from '@mui/icons-material/LockClock';
+
 
 
 import { useHistory } from "react-router-dom";
@@ -125,13 +129,13 @@ export default function Project() {
   }
 
   const tabs = [
-    { text: 'Brief','icon':'fullscreen', index:0, state:"completed", component: Brief, project: project },
-    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active", component: Manuscript, project: project },
-    { text: 'Storyboard','icon':'image', index:2, state:"locked", component: Storyboard, project: project },
-    { text: 'Voiceover','icon':'music', index:3, state:"locked",  component: Voiceover, project: project  },
-    { text: 'Illustrations','icon':'palette', index:4, state:"locked",  component: Illustrations, project: project  },
-    { text: 'Animation','icon':'runner', index:5, state:"locked",  component: Animation, project: project  },
-    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",  component: Delivery, project: project  },
+    { text: 'Brief','icon':'fullscreen', index:0, state:"completed",mIcon:CheckIcon , component: Brief, project: project },
+    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active",mIcon:AccessTimeIcon , component: Manuscript, project: project },
+    { text: 'Storyboard','icon':'image', index:2, state:"locked",mIcon:LockClockIcon , component: Storyboard, project: project },
+    { text: 'Voiceover','icon':'music', index:3, state:"locked",mIcon:LockClockIcon ,  component: Voiceover, project: project  },
+    { text: 'Illustrations','icon':'palette', index:4, state:"locked",mIcon:LockClockIcon ,  component: Illustrations, project: project  },
+    { text: 'Animation','icon':'runner', index:5, state:"locked",mIcon:LockClockIcon ,  component: Animation, project: project  },
+    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",mIcon:LockClockIcon ,  component: Delivery, project: project  },
   ];
 
   return (
@@ -142,6 +146,7 @@ export default function Project() {
               <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
               <h2 style={{fontSize:24}} className="projectName">{project.projectName}</h2>
               <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
+              <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Next expected delivery: 1 aug 2021 14:00" />
             </div>
             <div style={{marginBottom:8, display: 'flex', flexDirection: 'row',alignItems:'center',justifyContent: 'center'}}>
               <Avatar sx={{ bgcolor: 'primary', marginRight:1}}>PM</Avatar>
@@ -172,11 +177,11 @@ export default function Project() {
             //   );
             // }
             // if (isStepSkipped(index)) {
-            //   stepProps.completed = false;
+              // stepProps.completed = false;
             // }
             return (
-              <Step key={tab.text} {...stepProps}>
-                <StepLabel {...labelProps}>{tab.text}</StepLabel>
+              <Step key={tab.index} {...stepProps}>
+                <StepLabel StepIconComponent={tab.mIcon} {...labelProps}>{tab.text}</StepLabel>
               </Step>
             );
           })}
