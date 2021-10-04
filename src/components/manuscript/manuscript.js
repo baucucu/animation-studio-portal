@@ -31,6 +31,7 @@ export default function Manuscript(props){
                             <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
                                 <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Target length</Typography>
                                 <Chip label={"60s"} ></Chip>
+                                <Chip label={"not so strict"} ></Chip>
                             </Stack>
                             <Stack sx={{flexDirection:"row", justifyContent: "space-between", alignItems: "center"}}>
                                 <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Scenes</Typography>
@@ -65,8 +66,8 @@ export default function Manuscript(props){
             </Stack>
             <Grid mt={2} pb={2} container spacing={2} direction="row" rows={1} wrap="nowrap" style={{overflow:"auto"}}>
                 {[1,2,3,4,5,6,7,8,9,10].map((card,id) => 
-                    <Grid item>
-                        <Card key={id}>
+                    <Grid item key={id}>
+                        <Card >
                             <CardMedia
                                 component="img"
                                 sx={{ width: 300, height:120 }}

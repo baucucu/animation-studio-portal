@@ -83,7 +83,7 @@ export default function Project() {
       <>
         {project?.brief && <div>
           Brief submited
-          {project.brief.formResponse.answers.map((item,index) =>{return(<div>{project.brief.formResponse.definition.fields[index].title} {String(item[item.type]?.label || item[item.type]?.labels || item[item.type])}</div>)})}
+          {project.brief.formResponse.answers.map((item,index) =>{return(<div key={index}>{project.brief.formResponse.definition.fields[index].title} {String(item[item.type]?.label || item[item.type]?.labels || item[item.type])}</div>)})}
         </div>}
         {!project?.brief && <div>
           <p>In order to start your project, we need to collect some information about your company, product, and your expectations.</p>
@@ -132,13 +132,13 @@ export default function Project() {
   }
 
   const tabs = [
-    { text: 'Brief','icon':'fullscreen', index:0, state:"completed",mIcon:CheckIcon , component: Brief, project: project },
-    { text: 'Manuscript','icon':'verticalaligntop', index:1, state:"active",mIcon:AccessTimeIcon , component: Manuscript, project: project },
-    { text: 'Storyboard','icon':'image', index:2, state:"locked",mIcon:LockClockIcon , component: Storyboard, project: project },
-    { text: 'Voiceover','icon':'music', index:3, state:"locked",mIcon:LockClockIcon ,  component: Voiceover, project: project  },
-    { text: 'Illustrations','icon':'palette', index:4, state:"locked",mIcon:LockClockIcon ,  component: Illustrations, project: project  },
-    { text: 'Animation','icon':'runner', index:5, state:"locked",mIcon:LockClockIcon ,  component: Animation, project: project  },
-    { text: 'Delivery','icon':'movetofolder', index:6, state:"locked",mIcon:LockClockIcon ,  component: Delivery, project: project  },
+    { text: 'Brief','icon':'fullscreen', index:0, completed:"true", active:"true", mIcon:CheckIcon , component: Brief, project: project},
+    { text: 'Manuscript','icon':'verticalaligntop', index:1, completed:"true", active:"true", mIcon:AccessTimeIcon , component: Manuscript, project: project },
+    { text: 'Storyboard','icon':'image', index:2, completed:"false", active:"false" ,mIcon:LockClockIcon , component: Storyboard, project: project },
+    { text: 'Voiceover','icon':'music', index:3,  completed:"false", active:"false",mIcon:LockClockIcon ,  component: Voiceover, project: project  },
+    { text: 'Illustrations','icon':'palette', index:4,  completed:"false", active:"false",mIcon:LockClockIcon ,  component: Illustrations, project: project  },
+    { text: 'Animation','icon':'runner', index:5, completed:"false", active:"false",mIcon:LockClockIcon ,  component: Animation, project: project  },
+    { text: 'Delivery','icon':'movetofolder', index:6,  completed:"false", active:"false", mIcon:LockClockIcon ,  component: Delivery, project: project  },
   ];
 
   return (
@@ -160,7 +160,7 @@ export default function Project() {
               <Button icon="product" style={{marginLeft:8}} text="Proposal"></Button>
             </div>
           </div>          
-        <Tabs
+        {/* <Tabs
           mb={2}
           dataSource={tabs}
           selectedIndex={selectedIndex}
@@ -168,9 +168,9 @@ export default function Project() {
           animated
           itemRender={TabItem}
         >
-        </Tabs>
+        </Tabs> */}
         
-        <Stepper activeStep={selectedIndex}>
+        <Stepper activeStep={selectedIndex} >
           {tabs.map((tab, index) => {
             const stepProps = {};
             const labelProps = {};
@@ -183,8 +183,8 @@ export default function Project() {
               // stepProps.completed = false;
             // }
             return (
-              <Step key={tab.index} {...stepProps}>
-                <StepLabel StepIconComponent={tab.mIcon} {...labelProps}>{tab.text}</StepLabel>
+              <Step key={tab.index} className={`step-${tab.index}`} {...stepProps} >
+                <StepLabel onClick={()=>{setSelectedIndex(tab.index)}} style={{cursor:'pointer'}} StepIconComponent={tab.mIcon} StepIconProps={{active:'true',completed:'true', error: 'false'}} {...labelProps}>{tab.text}</StepLabel>
               </Step>
             );
           })}
