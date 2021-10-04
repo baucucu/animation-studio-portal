@@ -83,7 +83,7 @@ export default function Project() {
       <>
         {project?.brief && <div>
           Brief submited
-          {project.brief.formResponse.answers.map((item,index) =>{return(<div>{JSON.stringify(item[item.type])}</div>)})}
+          {project.brief.formResponse.answers.map((item,index) =>{return(<div>{project.brief.formResponse.definition.fields[index].title} {String(item[item.type]?.label || item[item.type]?.labels || item[item.type])}</div>)})}
         </div>}
         {!project?.brief && <div>
           <p>In order to start your project, we need to collect some information about your company, product, and your expectations.</p>
