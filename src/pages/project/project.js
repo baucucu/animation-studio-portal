@@ -81,7 +81,10 @@ export default function Project() {
    
     return(
       <>
-        {project?.brief && <></>}
+        {project?.brief && <div>
+          Brief submited
+          {project.brief.formResponse.answers.map((item,index) =>{return(<div>{JSON.stringify(item[item.type])}</div>)})}
+        </div>}
         {!project?.brief && <div>
           <p>In order to start your project, we need to collect some information about your company, product, and your expectations.</p>
           <p>This will lay the ground for the whole project and will be shared with all creators working on the project.</p>
