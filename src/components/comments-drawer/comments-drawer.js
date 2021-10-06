@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { Button as CButton, Comment, Form, Header } from 'semantic-ui-react';
 import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
 
 
 export default function CommentsDrawer(props) {
@@ -8,7 +9,7 @@ export default function CommentsDrawer(props) {
   useEffect(() => {console.log("drawer pros: ", props)},[props])
 
     return (
-      <React.Fragment>
+      <Box>
         <Paper id="content" elevation={10}>
           <Comment.Group threaded style={{paddingLeft:8}}>
             <Header as='h3' dividing>
@@ -81,6 +82,6 @@ export default function CommentsDrawer(props) {
             </Form>
           </Comment.Group>
         </Paper>
-      </React.Fragment>
+      </Box>
     )
   }

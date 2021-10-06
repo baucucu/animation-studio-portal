@@ -20,7 +20,7 @@ export default function Manuscript(props){
     }
 
     return(
-        <Stack  spacing={2} style={{display:"flex", flexDirection:"column", height:"100%"}}>
+        <Stack  spacing={2} >
             <Stack  sx={{flexDirection:"row", justifyContent: "start", alignItems: "center"}}>
                 <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Language</Typography>
                 <SplitButton />
