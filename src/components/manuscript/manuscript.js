@@ -24,22 +24,23 @@ export default function Manuscript(props){
     }
 
     return(
-        <Stack spacing={2} style={{display:"flex", flexDirection:"column", height:"100%"}}>
-            <Stack sx={{flexDirection:"row", justifyContent: "start", alignItems: "center"}}>
-                <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Language</Typography>
-                <SplitButton />
-            </Stack>
+        <Stack  spacing={2} style={{display:"flex", flexDirection:"column", height:"100%"}}>
+            
             <Drawer
                 style={{marginTop:2}}
                 opened={showBriefDrawer}
                 openedStateMode="shrink"
-                position="right"
+                position="left"
                 revealMode="slide"
                 component={BriefDrawer}
                 // closeOnOutsideClick={this.onOutsideClick}
                 height="100%"
             >
                 <div id="content" >
+                    <Stack mb={2} sx={{flexDirection:"row", justifyContent: "start", alignItems: "center"}}>
+                        <Typography mr={1} variant="subtitle1" color="text.secondary" component="div">Language</Typography>
+                        <SplitButton />
+                    </Stack>
                     <Stack  sx={{flexDirection: 'row', flexGrow:1}}>
                         <ManuscriptMetadata toggleBriefDrawer={toggleBriefDrawer}/>
                         <ManuscriptControlPanel />
