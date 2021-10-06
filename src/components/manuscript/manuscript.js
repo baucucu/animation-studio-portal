@@ -30,6 +30,7 @@ export default function Manuscript(props){
                 <SplitButton />
             </Stack>
             <Drawer
+                style={{marginTop:2}}
                 opened={showBriefDrawer}
                 openedStateMode="shrink"
                 position="right"
@@ -39,7 +40,7 @@ export default function Manuscript(props){
                 height="100%"
             >
                 <div id="content" >
-                    <Stack mt={2} sx={{flexDirection: 'row', flexGrow:1}}>
+                    <Stack  sx={{flexDirection: 'row', flexGrow:1}}>
                         <ManuscriptMetadata toggleBriefDrawer={toggleBriefDrawer}/>
                         <ManuscriptControlPanel />
                     </Stack>

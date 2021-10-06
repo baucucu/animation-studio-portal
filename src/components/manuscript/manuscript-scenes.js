@@ -21,6 +21,7 @@ export default function ManuscriptScenes(props) {
     return(
         <React.Fragment>
             <Drawer
+                style={{marginTop:2}}
                 opened={commentsDrawerOpen}
                 openedStateMode="shrink"
                 position="right"
