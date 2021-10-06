@@ -86,8 +86,9 @@ function Scenes(props) {
                             {/* <Typography variant="body2" color="text.secondary" component="div">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Typography> */}
                             <Stack sx={{flexDirection:"column"}} spacing={2}>
                                 <Stack mt={1} sx={{flexDirection:"row"}}>
-                                    <MicIcon/>
+                                    <MicIcon />
                                     <TextField
+                                        pl={2}
                                         fullWidth
                                         id="outlined-multiline-flexible"
                                         label="Voice"
@@ -100,18 +101,10 @@ function Scenes(props) {
                                     />
                                     {/* <MoreVertIcon/> */}
                                 </Stack>
-                                <Stack mt={1} style={{display:"flex", flexDirection:"row"}}>
+                                <Stack mt={1} style={{flexDirection:"row"}} >
                                     <DirectionsRunIcon />
-                                    {/* <Typography ml={1} variant="body2" color="text.secondary" component="div">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</Typography> */}
-                                    {/* <TextareaAutosize
-                                        style={{flexGrow:1}}
-                                        maxRows={10}
-                                        aria-label="maximum height"
-                                        placeholder="Maximum 4 rows"
-                                        defaultValue="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                                        // style={{ width: 200 }}
-                                    /> */}
                                     <TextField
+                                        pl={2}
                                         fullWidth
                                         id="outlined-multiline-flexible"
                                         label="Action"
@@ -122,13 +115,9 @@ function Scenes(props) {
                                         defaultValue="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
                                         // onChange={handleChange}
                                     />
-                                    {/* <MoreVertIcon/> */}
                                 </Stack>
                             </Stack>
                         </CardContent>
-                        {/* <CardActions>
-                            <CardButton size="small">Comment</CardButton>
-                        </CardActions> */}
                     </Card>
                 </Grid>
             )}
