@@ -3,6 +3,8 @@ import { Button as CButton, Comment, Form, Header } from 'semantic-ui-react'
 
 
 export default function CommentsDrawer(props) {
+    
+  useEffect(() => {console.log("drawer pros: ", props)},[])
 
     return (
       <React.Fragment>

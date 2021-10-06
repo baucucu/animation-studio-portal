@@ -1,27 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import Manuscript from '../../components/manuscript/manuscript.js'
+import Brief from '../../components/brief/brief.js'
 import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
-// import Box from 'devextreme-react/box';
 import MultiView from 'devextreme-react/multi-view';
-import { Popup} from 'devextreme-react/popup';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import StepLabel from '@mui/material/StepLabel';
-// import StepContent from '@mui/material/StepContent';
 import CheckIcon from '@mui/icons-material/Check';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LockClockIcon from '@mui/icons-material/LockClock';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import Drawer from 'devextreme-react/drawer';
-
-
-
-
 
 import { useHistory } from "react-router-dom";
 import './project.scss';
@@ -36,12 +28,6 @@ export default function Project() {
 
   const [project, setProject] = useState()
   const [selectedIndex, setSelectedIndex] = useState(0)
-  
-  function onTabIndexChanged (e) {
-    if(e.name === 'selectedItem') {
-      setSelectedIndex(e.value.index)
-    }
-  }
 
   async function getProject(projectId){
     return await projectsColection.find({_id: BSON.ObjectId(projectId)})
@@ -58,66 +44,7 @@ export default function Project() {
   useEffect(() => {
   },[project])
 
-  const TabItem = (props) => {
-    const icon = props.state === "completed" ? "check" : props.state === "active" ? "clock" : "key"
-    const color = props.state === "completed" ? "green" : props.state === "active" ? "purple" : "gray"
-    return(
-      <div >
-        <div>
-          <i className={`dx-icon-${icon}`} style={{marginLeft:50, fontSize:16, color: color}}></i>
-        </div>
-        <div>
-          <i className={`dx-icon-${props.icon}`} style={{fontSize:24}}></i>
-          <div>{props.text}</div>
-        </div>
-        
-      </div>  
-    )
-  }
-  const Brief = (props) => {
-    const {project} = props.data
-    const [showPopup, setShowPopup] = useState(false)
-    const url = `https://studioflow.typeform.com/to/N5cgnKjZ#companyname=${'xxxxx'}&orderedpackage=${'xxxxx'}&orderedpremiumlogoanimation=${'xxxxx'}&subtitle=${'xxxxx'}&deal_id=${'xxxxx'}`
-   
-   useEffect(() => {
-     console.log("props ", props)
-   },[props])
-   
-    return(
-      <>
-        {project?.brief && <div>
-          Brief submited
-          {project.brief.formResponse.answers.map((item,index) =>{return(<div key={index}>{project.brief.formResponse.definition.fields[index].title} {String(item[item.type]?.label || item[item.type]?.labels || item[item.type])}</div>)})}
-        </div>}
-        {!project?.brief && <div>
-          <p>In order to start your project, we need to collect some information about your company, product, and your expectations.</p>
-          <p>This will lay the ground for the whole project and will be shared with all creators working on the project.</p>
-          <p>The questionnaire contains about 40 questions and takes roughly 30 minutes to respond to.</p>
-          <p>Make sure you have gathered all involved parties on your side when answering the questions in the brief. The more detailed the better it is!</p>
-          <p>Click the link below to start the questionnaire.</p>
-          <Button
-            className="button-info"
-            text="Brief questionnaire"
-            onClick={()=>setShowPopup(true)}
-          />
-          <Popup
-            visible={showPopup}
-            onHiding={()=>setShowPopup(false)}
-            // dragEnabled={false}
-            closeOnOutsideClick={true}
-            showCloseButton={true}
-            showTitle={true}
-            title="Brief"
-            container=".dx-viewport"
-            width={1000}
-            height={800}
-          >
-            <iframe style={{width:940, height: 680}} src={url} title="Brief"/>
-          </Popup>
-        </div>}
-      </>
-    )
-  }
+  
  
   const Storyboard = (props) => {
     return(<>Storyboard content</>)
@@ -198,8 +125,4 @@ export default function Project() {
       </Stack>}
     </React.Fragment>
   )
-  
 };
-
-
-

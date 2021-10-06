@@ -1,21 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import CommentsDrawer from '../../components/comments-drawer/comments-drawer.js'
 import Drawer from 'devextreme-react/drawer';
-import { CButton, Comment, Form, Header } from 'semantic-ui-react'
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import CardActions from '@mui/material/CardActions';
-// import CardMedia from '@mui/material/CardMedia';
-import CardButton from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import MicIcon from '@mui/icons-material/Mic';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import LockClockIcon from '@mui/icons-material/LockClock';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
@@ -23,10 +16,12 @@ import TextField from '@mui/material/TextField';
 
 export default function ManuscriptScenes(props) {
 
+    const [commentsDrawerOpen, setCommentsDrawerOpen] = useState(false)
+    function toggleDrawer() {setCommentsDrawerOpen(!commentsDrawerOpen)}
     return(
         <React.Fragment>
             <Drawer
-                opened={true}
+                opened={commentsDrawerOpen}
                 openedStateMode="shrink"
                 position="right"
                 revealMode="slide"
@@ -48,7 +43,7 @@ export default function ManuscriptScenes(props) {
                                     <CardContent >
                                         <Stack sx={{flexDirection:"row", justifyContent: "space-between"}}>
                                             <Typography variant="h6" color="text.secondary" component="div">Scene #</Typography>
-                                            <IconButton color="primary" aria-label="open comments">
+                                            <IconButton color="primary" aria-label="open comments" onClick={() => {toggleDrawer(id)}}>
                                                 <Badge badgeContent={4} color="secondary" >
                                                     <RateReviewIcon color="action" onClick={() => {}}/>
                                                 </Badge>
