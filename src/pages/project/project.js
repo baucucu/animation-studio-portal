@@ -80,25 +80,7 @@ export default function Project() {
   return (
     <Box>
       {project && <Stack className={'content-block'} spacing={2}>
-          <Box style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
-            <Box style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
-              <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
-              <h2 style={{fontSize:24}} className="projectName">{project.projectName}</h2>
-              <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
-              <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Next expected delivery: 1 aug 2021 14:00" />
-            </Box>
-            <AvatarGroup max={4}>
-              <Avatar sx={{ bgcolor: 'primary'}}>PM</Avatar>
-              <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
-              <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
-              <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
-              <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
-            </AvatarGroup>
-            <Box style={{display: "flex", flexGrow:0, justifyContent: "flex-end", alignItems:"center"}}>
-              {project.products.map((product, id) => <Chip key={id} style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
-              <Button icon="product" style={{marginLeft:8}} text="Proposal"></Button>
-            </Box>
-          </Box>          
+          <ProjectHeader project={project} history={history}/> 
         
         <Stepper activeStep={selectedIndex} >
           {tabs.map((tab, index) => {
@@ -131,3 +113,30 @@ export default function Project() {
     </Box>
   )
 };
+
+function ProjectHeader(props) {
+
+  const {project, history} = props
+
+  return(
+    <Stack sx={{flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
+      <Box style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
+        <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
+        <h2 style={{fontSize:24}} className="projectName">{project.projectName}</h2>
+        <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
+        <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Next expected delivery: 1 aug 2021 14:00" />
+      </Box>
+      <AvatarGroup max={4}>
+        <Avatar sx={{ bgcolor: 'primary'}}>PM</Avatar>
+        <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
+        <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
+        <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
+        <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
+      </AvatarGroup>
+      <Box style={{display: "flex", flexGrow:0, justifyContent: "flex-end", alignItems:"center"}}>
+        {project.products.map((product, id) => <Chip key={id} style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
+        <Button icon="product" style={{marginLeft:8}} text="Proposal"></Button>
+      </Box>
+    </Stack>   
+  )
+}
