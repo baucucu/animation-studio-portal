@@ -51,7 +51,7 @@ export default function ManuscriptScenes(props) {
                     height="100%"
                 >
                     
-                    <Scenes />
+                    <Scenes toggleDrawer={toggleDrawer}/>
                 </Drawer>
             </Drawer>            
         </Box>
