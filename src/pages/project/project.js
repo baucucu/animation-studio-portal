@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Manuscript from '../../components/manuscript/manuscript.js'
 import * as Realm from "realm-web";
 import Button from 'devextreme-react/button';
-import Tabs from 'devextreme-react/tabs';
 import Box from 'devextreme-react/box';
 import MultiView from 'devextreme-react/multi-view';
 import { Popup} from 'devextreme-react/popup';
@@ -10,12 +9,18 @@ import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
+import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
+// import StepContent from '@mui/material/StepContent';
 import CheckIcon from '@mui/icons-material/Check';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LockClockIcon from '@mui/icons-material/LockClock';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Grid from '@mui/material/Grid';
+import Drawer from 'devextreme-react/drawer';
+import { Button as CButton, Comment, Form, Header } from 'semantic-ui-react'
+
 
 
 
@@ -144,6 +149,16 @@ export default function Project() {
   return (
     <React.Fragment>
       {project && <Stack className={'content-block'} spacing={2}>
+          {/* <Drawer
+              style={{minWidth: 300}}
+              anchor="right"
+              // variant="persistent"
+              open={false}
+              persistant
+              // onClose={toggleDrawer(anchor, false)}
+          >
+              <div>Drawer content ********************************************</div>
+          </Drawer> */}
           <div style={{display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"space-between"}}>
             <div style={{display:"flex", flexDirection:"row", alignItems: "center"}}>
               <Button icon="back" onClick={history.goBack} style={{margin:8}}></Button>
@@ -151,24 +166,18 @@ export default function Project() {
               <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Ongoing" />
               <Chip style={{marginLeft:8}} icon={<AccessTimeIcon/>} label="Next expected delivery: 1 aug 2021 14:00" />
             </div>
-            <div style={{marginBottom:8, display: 'flex', flexDirection: 'row',alignItems:'center',justifyContent: 'center'}}>
-              <Avatar sx={{ bgcolor: 'primary', marginRight:1}}>PM</Avatar>
+            <AvatarGroup max={4}>
+              <Avatar sx={{ bgcolor: 'primary'}}>PM</Avatar>
               <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
-            </div>
+              <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
+              <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
+              <Avatar sx={{ bgcolor: 'primary'}}>AR</Avatar>  
+            </AvatarGroup>
             <div style={{display: "flex", flexGrow:0, justifyContent: "flex-end", alignItems:"center"}}>
               {project.products.map((product, id) => <Chip key={id} style={{marginLeft: 4}} avatar={<Avatar>{product.quantity}</Avatar>} label={product.name} />)}
               <Button icon="product" style={{marginLeft:8}} text="Proposal"></Button>
             </div>
           </div>          
-        {/* <Tabs
-          mb={2}
-          dataSource={tabs}
-          selectedIndex={selectedIndex}
-          onOptionChanged={onTabIndexChanged}
-          animated
-          itemRender={TabItem}
-        >
-        </Tabs> */}
         
         <Stepper activeStep={selectedIndex} >
           {tabs.map((tab, index) => {
@@ -189,16 +198,108 @@ export default function Project() {
             );
           })}
         </Stepper>
-        <MultiView
-          // height={300}
-          dataSource={tabs}
-          selectedIndex={selectedIndex}
-          swipeEnabled={false}
-          itemComponent={tabs.filter(tab => tab.index===selectedIndex)[0].component}
-          animationEnabled={true} />
+        <Drawer
+          opened={true}
+          openedStateMode="shrink"
+          position="right"
+          revealMode="slide"
+          component={CommentsDrawer}
+          // closeOnOutsideClick={this.onOutsideClick}
+          height="100%"
+        >
+          <div id="content" >
+            <MultiView
+              // height={300}
+              dataSource={tabs}
+              selectedIndex={selectedIndex}
+              swipeEnabled={false}
+              itemComponent={tabs.filter(tab => tab.index===selectedIndex)[0].component}
+              animationEnabled={true} 
+            />
+          </div>
+        </Drawer>
+        
       </Stack>}
     </React.Fragment>
   )
   
 };
+
+const CommentsDrawer = (props) => {
+
+  return (
+    <React.Fragment>
+      <Comment.Group threaded style={{paddingLeft:8}}>
+        <Header as='h3' dividing>
+          Scene #
+        </Header>
+
+        <Comment>
+          <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+          <Comment.Content>
+            <Comment.Author as='a'>Matt</Comment.Author>
+            <Comment.Metadata>
+              <span>Today at 5:42PM</span>
+            </Comment.Metadata>
+            <Comment.Text>How artistic!</Comment.Text>
+            <Comment.Actions>
+              <a>Reply</a>
+            </Comment.Actions>
+          </Comment.Content>
+        </Comment>
+
+        <Comment>
+          <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+          <Comment.Content>
+            <Comment.Author as='a'>Elliot Fu</Comment.Author>
+            <Comment.Metadata>
+              <span>Yesterday at 12:30AM</span>
+            </Comment.Metadata>
+            <Comment.Text>
+              <p>This has been very useful for my research. Thanks as well!</p>
+            </Comment.Text>
+            <Comment.Actions>
+              <a>Reply</a>
+            </Comment.Actions>
+          </Comment.Content>
+
+          <Comment.Group>
+            <Comment>
+              <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
+              <Comment.Content>
+                <Comment.Author as='a'>Jenny Hess</Comment.Author>
+                <Comment.Metadata>
+                  <span>Just now</span>
+                </Comment.Metadata>
+                <Comment.Text>Elliot you are always so right :)</Comment.Text>
+                <Comment.Actions>
+                  <a>Reply</a>
+                </Comment.Actions>
+              </Comment.Content>
+            </Comment>
+          </Comment.Group>
+        </Comment>
+
+        <Comment>
+          <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
+          <Comment.Content>
+            <Comment.Author as='a'>Joe Henderson</Comment.Author>
+            <Comment.Metadata>
+              <span>5 days ago</span>
+            </Comment.Metadata>
+            <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
+            <Comment.Actions>
+              <a>Reply</a>
+            </Comment.Actions>
+          </Comment.Content>
+        </Comment>
+
+        <Form reply>
+          <Form.TextArea />
+          <CButton content='Add Reply' labelPosition='left' icon='edit' primary />
+        </Form>
+      </Comment.Group>
+    </React.Fragment>
+  )
+}
 
