@@ -33,6 +33,10 @@ export default function Home() {
     getProjects().then(data => setProjects(data))
   },[])
 
+  useEffect(() => {
+    console.log("projects changed: ", projects)
+  },[projects])
+
   return (
     <React.Fragment>
       <h2 className={'content-block'}>Projects</h2>

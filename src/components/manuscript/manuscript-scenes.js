@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import CommentsDrawer from '../../components/comments-drawer/comments-drawer.js'
 import Drawer from 'devextreme-react/drawer';
 import Grid from '@mui/material/Grid';
@@ -12,27 +12,47 @@ import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 
 
 export default function ManuscriptScenes(props) {
 
+    const {briefDrawerOpen} = props
     const [commentsDrawerOpen, setCommentsDrawerOpen] = useState(false)
-    function toggleDrawer() {setCommentsDrawerOpen(!commentsDrawerOpen)}
+    const toggleDrawer = () => {
+        setCommentsDrawerOpen(!commentsDrawerOpen)
+    }
+
+    // const [showBriefDrawer, setShowBriefDrawer] = useState(false)
+    // const toggleBriefDrawer = () => {
+    //     setShowBriefDrawer(!showBriefDrawer)
+    // }
+
     return(
-        <React.Fragment>
+        <Box >
             <Drawer
-                style={{marginTop:2}}
-                opened={commentsDrawerOpen}
+                
+                opened={briefDrawerOpen}
                 openedStateMode="shrink"
-                position="right"
+                position="left"
                 revealMode="slide"
-                component={CommentsDrawer}
+                component={BriefDrawer}
                 // closeOnOutsideClick={this.onOutsideClick}
                 height="100%"
             >
-                <div id="content" >
-                    <Grid mt={2} pb={2} container spacing={2} direction="row" rows={1} wrap="nowrap" sx={{overflow:"auto", flexGrow: 1, alignItems:"stretch", }}>
-                        {[1,2,3,4,5,6,7,8,9,10].map((card,id) => 
+                <Drawer
+                    
+                    opened={commentsDrawerOpen}
+                    openedStateMode="shrink"
+                    position="right"
+                    revealMode="slide"
+                    component={CommentsDrawer}
+                    // closeOnOutsideClick={this.onOutsideClick}
+                    height="100%"
+                >
+                    
+                    <Grid pb={2} pr={2}container spacing={2} direction="row" rows={1} wrap="nowrap" sx={{overflow:"auto", flexGrow: 1, alignItems:"stretch", }}>
+                        {[1,2,3,].map((card,id) => 
                             <Grid item key={id}>
                                 <Card sx={{width: 450}}>
                                     {/* <CardMedia
@@ -100,9 +120,16 @@ export default function ManuscriptScenes(props) {
                             </Grid>
                         )}
                     </Grid>
-                </div>
-            </Drawer>
-            
-        </React.Fragment>
+                </Drawer>
+            </Drawer>            
+        </Box>
+    )
+}
+
+function BriefDrawer(props) {
+    return(
+        <Box pr={2}>
+            Brief drawer *****************************
+        </Box>
     )
 }

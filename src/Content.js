@@ -19,12 +19,12 @@ export default function Content() {
         ))}
         <Redirect to={'/home'} />
       </Switch>
-      <Footer>
+      {/* <Footer>
         Copyright © 2011-{new Date().getFullYear()} {appInfo.title} Inc.
         <br />
         All trademarks or registered trademarks are property of their
         respective owners.
-      </Footer>
+      </Footer> */}
     </SideNavBarLayout>
   );
 }
